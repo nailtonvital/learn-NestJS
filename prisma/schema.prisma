@@ -18,8 +18,12 @@ model User {
   email String @unique
   hash String
 
-  firstName String
-  lastName String
+  firstName String?
+  lastName String?
+
+  bookmarks Bookmark[]
+
+  @@map("users")
 }
 model Bookmark {
   id Int @id @default(autoincrement())
@@ -27,6 +31,11 @@ model Bookmark {
   updatedAt DateTime @updatedAt
 
   title String
-  description String
+  description String?
   url String
+
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("bookmarks")
 }
